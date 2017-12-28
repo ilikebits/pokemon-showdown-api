@@ -267,11 +267,12 @@ class PokeClient extends EventEmitter2
         [name, description] = data.split ': '
         return {type, data: {name, description}}
       when MESSAGE_TYPES.BATTLE.CLEARPOKE
-        null
+        return {type}
       when MESSAGE_TYPES.BATTLE.POKE
-        null
+        [player, poke, item] = data.split '|'
+        return {type, player: player, poke: poke, item: item != ''}
       when MESSAGE_TYPES.BATTLE.TEAMPREVIEW
-        null
+        return {type}
       when MESSAGE_TYPES.BATTLE.REQUEST
         return {type, data: JSON.parse data}
       when MESSAGE_TYPES.BATTLE.INACTIVE
@@ -284,7 +285,13 @@ class PokeClient extends EventEmitter2
         return {type, data}
       when MESSAGE_TYPES.BATTLE.TIE
         return {type}
+      when MESSAGE_TYPES.BATTLE.ERROR
+        [error, description] = data.split '] '
+        error = error.replace /\[/, ''
+        return {type, data: {error, description}}
 
+      when MESSAGE_TYPES.BATTLE.ACTIONS.MAJOR.TURN
+        return {type, data: data}
       when MESSAGE_TYPES.BATTLE.ACTIONS.MAJOR.MOVE
         [pokemon, move, target] = data.split '|'
         return {type, data: {pokemon, move, target}}

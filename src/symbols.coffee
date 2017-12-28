@@ -41,9 +41,11 @@ MESSAGE_TYPES =
     START: Symbol.for 'psc:token:start'
     WIN: Symbol.for 'psc:token:win'
     TIE: Symbol.for 'psc:token:tie'
+    ERROR: Symbol.for 'psc:token:error'
 
     ACTIONS:
       MAJOR:
+        TURN: Symbol.for 'psc:token:turn'
         MOVE: Symbol.for 'psc:token:move'
         SWITCH: Symbol.for 'psc:token:switch'
         DRAG: Symbol.for 'psc:token:drag'
